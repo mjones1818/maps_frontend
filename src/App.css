@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.card {
+  min-width: 18rem !important;
+  max-width: 18rem !important;
+}
+
+/* .map-image {
+  height: 200px;
+} */
+
