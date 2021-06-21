@@ -33,11 +33,16 @@ class MapContainer extends Component {
   }
 
   setMapUrl = () => {
-
+    console.log('setMapUrl')
     fetch('http://localhost:3000/get_map')
     .then(result => result.json())
     // .then(resp => console.log(resp, this.state))
-    .then(result => this.getAllStyles)
+    // .then(result => this.getAllStyles)
+    .then(resp => this.setState(
+      {
+        map_url: resp.style_object.map_url
+      }
+    ))
   }
 
   getMap = () => {
@@ -50,7 +55,9 @@ class MapContainer extends Component {
         map_url: resp.style_object.map_url
       }
     ))
+    .then(resp => console.log('get map'))
     .then(resp => this.getColors())
+    
   }
 
   saveMap = () => {
@@ -60,12 +67,17 @@ class MapContainer extends Component {
     .then(resp => alert('map saved'))
   }
 
-  mapError = () => {
-    this.setState(
-      {
-        map_url: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'
-      }
-    )
+  mapError = (e) => {
+    console.log('error',e)
+    e.target.src='https://www.computerhope.com/jargon/e/error.png'
+    // e.target.src=this.state.mapUrl
+    
+    // this.setState(
+    //   {
+    //     map_url: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'
+    //     // map_url: this.state.mapUrl
+    //   }
+    // )
   }
 
   deleteMap = (style_id) => {

@@ -8,10 +8,11 @@ class NewMap extends Component {
         <button onClick={() => this.props.getMap()} >Get map</button>
         <button onClick={() => this.props.saveMap()} >Save map</button>
         <br></br>
-        <img 
+        <img
+        key={this.props.mapUrl} 
         src={this.props.mapUrl}
         alt='map' 
-        onError={()=> this.props.mapError()} >
+        onError={(e)=> this.props.mapError(e)} >
         </img>
       </div>
     )
