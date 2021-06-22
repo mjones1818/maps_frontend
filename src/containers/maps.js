@@ -5,7 +5,8 @@ class MapContainer extends Component {
   state = {
     style: {},
     map_url: '',
-    all_styles: {}
+    all_styles: {},
+    palettes: {}
   }
 
   componentDidMount() {
@@ -22,7 +23,7 @@ class MapContainer extends Component {
     .then(resp => resp.json())
     .then(resp => this.setState(
       {
-        all_styles: resp
+        all_styles: resp,
       }
     ))
     .then(resp => console.log('get all styles'))
@@ -30,6 +31,15 @@ class MapContainer extends Component {
 
   getColors() {
     fetch('http://localhost:3000/get_colors')
+    .then(resp => resp.json())
+    .then(resp => this.setState(
+      {
+        palettes: {
+          total: resp.total,
+          unused:resp.unused
+        }
+      }
+    ))
   }
 
   setMapUrl = () => {
@@ -102,7 +112,7 @@ class MapContainer extends Component {
           saveMap={this.saveMap}
           mapError={this.mapError}
         ></NewMap>
-        {this.state.all_styles.length > 0 ? <Saved all_styles={this.state.all_styles} deleteMap={this.deleteMap}></Saved> : ''}
+        {this.state.all_styles.length > 0 ? <Saved all_styles={this.state.all_styles} deleteMap={this.deleteMap} palettes={this.state.palettes}></Saved> : ''}
       </div>
     )
   }
